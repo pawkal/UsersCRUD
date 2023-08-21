@@ -1,11 +1,25 @@
-package pl.coderslab;
+package pl.coderslab.utils;
+
 public class User {
+
     private int id;
     private String userName;
     private String email;
     private String password;
 
-    public long getId() {
+    // Konstruktory
+    public User() {
+    }
+
+    public User(int id, String userName, String email, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Gettery i settery
+    public int getId() {
         return id;
     }
 
@@ -37,6 +51,13 @@ public class User {
         this.password = password;
     }
 
+    // Metoda toString()
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
-
-

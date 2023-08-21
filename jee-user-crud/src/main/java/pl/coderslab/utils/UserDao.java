@@ -1,8 +1,7 @@
-package pl.coderslab.util;
+package pl.coderslab.utils;
 
-import pl.coderslab.util.DbUtil;
-import pl.coderslab.User;
-import pl.coderslab.util.DbUtil;
+import pl.coderslab.utils.DbUtil;
+import pl.coderslab.utils.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -54,6 +53,23 @@ public class UserDao {
     }
 
     public User read(int userId) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY)) {
+
+            statement.setInt(1, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return extractUserFromResultSet(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    public User findById(int userId) {
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY)) {
 

@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/list")
-public class UserList extends HttpServlet {
+@WebServlet("/user/delete")
+public class UserDelete extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao userDao = new UserDao();
-        request.setAttribute("users", userDao.findAll());
-
-        getServletContext().getRequestDispatcher("/users/list.jsp").forward(request, response);
+        userDao.delete(Integer.parseInt(request.getParameter("id")));
+        response.sendRedirect(request.getContextPath() + "/user/list");
     }
 }
